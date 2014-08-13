@@ -1,0 +1,14 @@
+apply plugin: 'java'
+apply plugin: 'war'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.jboss.resteasy:resteasy-guice:3.0.8.Final'
+    compile 'org.jboss.resteasy:resteasy-jackson-provider:3.0.8.Final'
+    compile 'org.jboss.resteasy:resteasy-jaxrs:3.0.8.Final'
+
+    compile 'org.hsqldb:hsqldb:2.3.2'
+}
