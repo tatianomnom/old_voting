@@ -5,7 +5,9 @@
 
     <context-param>
         <param-name>resteasy.guice.modules</param-name>
-        <param-value>com.tatianomnom.choozorro.hello.HelloModule</param-value>
+        <param-value>com.tatianomnom.choozorro.api.ApiModule,
+            com.tatianomnom.choozorro.service.ServiceModule
+        </param-value>
     </context-param>
 
     <listener>
