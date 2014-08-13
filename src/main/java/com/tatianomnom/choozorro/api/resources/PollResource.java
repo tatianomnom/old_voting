@@ -1,12 +1,14 @@
 package com.tatianomnom.choozorro.api.resources;
 
-import java.util.HashMap;
-import java.util.Map;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
+import com.tatianomnom.choozorro.model.Poll;
 import com.tatianomnom.choozorro.service.UuidGenerator;
 
 /**
@@ -31,10 +33,15 @@ public class PollResource {
 
     @GET
     @Produces("application/json")
-    public Map<String, String> getSome() {
-        Map<String, String> map = new HashMap<>();
-        map.put("a", "zaa");
-        map.put("b", "zbb");
-        return map;
+    public Poll getSome() {
+        Poll poll = new Poll("LALA");
+        return poll;
+    }
+
+    @POST
+    @Consumes("application/json")
+    public Response eatSome(Poll poll) {
+        System.out.println("I've got a " + poll.getDescription());
+        return Response.ok().build();
     }
 }
