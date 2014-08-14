@@ -5,8 +5,5 @@ language: java
 jdk:
  - oraclejdk7
 
-script:
- - gradle clean build
-
 notifications:
  email: false
