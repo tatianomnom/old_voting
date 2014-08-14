@@ -7,3 +7,9 @@ jdk:
 
 notifications:
  email: false
+
+before_script:
+ - "mkdir -p shippable/testresults"
+
+after_script:
+ - "cp build/reports shippable/testresults"
