@@ -11,4 +11,8 @@ dependencies {
     compile 'org.jboss.resteasy:resteasy-jaxrs:3.0.8.Final'
 
     compile 'org.hsqldb:hsqldb:2.3.2'
+
+    testCompile 'org.testng:testng:6.8.8'
+    testCompile 'com.google.truth:truth:0.23'
+
 }
