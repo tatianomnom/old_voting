@@ -38,6 +38,9 @@ public class PollResource {
         return poll;
     }
 
+
+    //test with
+    //curl -X POST -d '{"description":"Meow"}' -H "Content-Type: application/json" http://localhost:8080/polls
     @POST
     @Consumes("application/json")
     public Response eatSome(Poll poll) {

@@ -8,6 +8,6 @@ import static com.google.common.truth.Truth.assertThat;
 public class ExampleTest {
     public void testSomething() {
         int a = 1;
-        assertThat(a).isEqualTo(2);
+        assertThat(a).isBetween(0, 4);
     }
 }
