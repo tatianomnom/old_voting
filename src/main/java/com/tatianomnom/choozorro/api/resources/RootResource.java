@@ -15,12 +15,12 @@ import com.tatianomnom.choozorro.service.UuidGenerator;
  * TODO add description
  */
 @Path("/polls")
-public class PollResource {
+public class RootResource {
 
     private final UuidGenerator uuidGenerator;
 
     @Inject
-    public PollResource(UuidGenerator uuidGenerator) {
+    public RootResource(UuidGenerator uuidGenerator) {
         this.uuidGenerator = uuidGenerator;
     }
 
