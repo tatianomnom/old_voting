@@ -7,7 +7,7 @@ import static com.google.common.truth.Truth.assertThat;
 @Test
 public class ExampleTest {
     public void testSomething() {
-        int a = 10;
+        int a = 1;
         assertThat(a).isBetween(0, 4);
     }
 }
