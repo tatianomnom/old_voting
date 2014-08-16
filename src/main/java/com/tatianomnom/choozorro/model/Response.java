@@ -1,4 +1,4 @@
-package com.tatianomnom.choozorro.api.resources;
+package com.tatianomnom.choozorro.model;
 
 /**
  * TODO add description
