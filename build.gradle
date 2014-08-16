@@ -6,17 +6,24 @@ repositories {
 }
 
 dependencies {
-    compile 'org.jboss.resteasy:resteasy-guice:3.0.8.Final'
-    compile 'org.jboss.resteasy:resteasy-jackson-provider:3.0.8.Final'
-    compile 'org.jboss.resteasy:resteasy-jaxrs:3.0.8.Final'
+    def resteasyVersion = '3.0.8.Final'
+    def log4jVersion = '2.0.1'
+    def hsqlVersion = "2.3.2"
+    def testNgVersion = "6.8.8"
+    def googleTruthVersion = "0.23"
 
-    compile 'org.apache.logging.log4j:log4j-api:2.0.1'
-    compile 'org.apache.logging.log4j:log4j-core:2.0.1'
+    compile "org.jboss.resteasy:resteasy-guice:$resteasyVersion"
+    compile "org.jboss.resteasy:resteasy-jackson-provider:$resteasyVersion"
+    compile "org.jboss.resteasy:resteasy-jaxrs:$resteasyVersion"
 
-    compile 'org.hsqldb:hsqldb:2.3.2'
+    compile "org.apache.logging.log4j:log4j-api:$log4jVersion"
+    compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
+    compile "org.apache.logging.log4j:log4j-web:$log4jVersion"
 
-    testCompile 'org.testng:testng:6.8.8'
-    testCompile 'com.google.truth:truth:0.23'
+    compile "org.hsqldb:hsqldb:$hsqlVersion"
+
+    testCompile "org.testng:testng:$testNgVersion"
+    testCompile "com.google.truth:truth:$googleTruthVersion"
 
 }
 
