@@ -15,7 +15,7 @@ public class PollResource {
     @GET
     @Produces("application/json")
     public Poll getSome() {
-        Poll poll = new Poll("LALA");
+        Poll poll = new Poll("AA");
         return poll;
     }
 
