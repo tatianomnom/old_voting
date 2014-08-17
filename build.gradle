@@ -13,8 +13,8 @@ dependencies {
     def resteasyVersion = '3.0.8.Final'
     def log4jVersion = '2.0.1'
     def hsqlVersion = "2.3.2"
-    def testNgVersion = "6.8.8"
     def googleTruthVersion = "0.23"
+    def spockVersion = "0.7-groovy-2.0"
 
     compile "org.jboss.resteasy:resteasy-guice:$resteasyVersion"
     compile "org.jboss.resteasy:resteasy-jackson-provider:$resteasyVersion"
@@ -26,19 +26,13 @@ dependencies {
 
     compile "org.hsqldb:hsqldb:$hsqlVersion"
 
-    testCompile 'org.codehaus.groovy:groovy-all:2.3.2'
-
-//    testCompile "org.testng:testng:$testNgVersion"
     testCompile "com.google.truth:truth:$googleTruthVersion"
-    testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
+    testCompile "org.spockframework:spock-core:$spockVersion"
 
 
 }
 
 test {
-    // enable TestNG support (default is JUnit)
-//    useTestNG()
-
     // log actual and expected data
     testLogging {
         exceptionFormat = 'full'
