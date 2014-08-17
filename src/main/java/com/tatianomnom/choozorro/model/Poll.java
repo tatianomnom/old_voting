@@ -3,7 +3,6 @@ package com.tatianomnom.choozorro.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * TODO add description
@@ -21,7 +20,7 @@ public class Poll {
 
     private final List<String> ratings = new ArrayList<>();
 
-    public Poll(@JsonProperty("description") String description) {
+    public Poll(String description) {
         this.description = description;
     }
 
