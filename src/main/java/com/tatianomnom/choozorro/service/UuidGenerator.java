@@ -1,8 +1,6 @@
 package com.tatianomnom.choozorro.service;
 
 import java.util.UUID;
-import javax.inject.Inject;
-import javax.inject.Named;
 
 
 /**

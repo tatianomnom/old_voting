@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * TODO add description
  * TODO move inside PollResource? who needs it outside controller
+ * TODO add ID (for URL) and something like maxSubmitsNum
  */
 public class PollCommand {
     private final String description;

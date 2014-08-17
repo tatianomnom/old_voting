@@ -1,24 +1,45 @@
 package com.tatianomnom.choozorro.api
 
 import groovyx.net.http.RESTClient
+import spock.lang.Shared
 import spock.lang.Specification
+import spock.lang.Stepwise
 
 import static groovyx.net.http.ContentType.JSON
 
 /**
  * TODO add description
  */
+
+@Stepwise
 class PollResourceSpec extends Specification {
 
+    private static final String BASEURL = 'http://localhost:8099/api'
+
+    @Shared
+    private def polls = new RESTClient("$BASEURL/polls", JSON)
+
     def "should create new poll"() {
-        given:
-        def polls = new RESTClient('http://localhost:8099/api/polls', JSON)
 
         when:
         def resp = polls.post([body: [description: 'test', options: ['a', 'b', 'c']]])
 
         then:
-        resp.status == 200
-        resp.data.url == '00000000000000000000000000000001'
+        resp.status == 201
+        //TODO is it possible to get only the value?
+        String fullHeader = resp.headers['Location']
+        def header = fullHeader.split(': ')[1].trim()
+        header == "$BASEURL/polls/00000000000000000000000000000001"
+    }
+
+    def "should find created poll"() {
+
+        when:
+        //TODO consistent uri chunks in http client, looks like 'path' overwrites previous relative paths
+        def resp = polls.get([path : 'polls/00000000000000000000000000000001'])
+
+        then:
+        resp.data.description == 'aaa'
+        resp.data.options == ['a', 'b']
     }
 }
