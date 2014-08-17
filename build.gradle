@@ -36,6 +36,10 @@ task wrapper(type: Wrapper) {
     gradleVersion = '2.0'
 }
 
+jettyRun.doFirst {
+    System.setProperty('env', 'ci')
+}
+
 test {
     // log actual and expected data
     testLogging {
@@ -49,6 +53,7 @@ intTest {
         exceptionFormat = 'full'
     }
 }
+
 
 tasks.jettyRun.dependsOn test
 tasks.check.dependsOn intTest
