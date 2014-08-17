@@ -32,11 +32,6 @@ task intTest(type:Test, dependsOn:jettyRun) {
     jettyStop.execute()
 }
 
-task testReport(type: TestReport) {
-    destinationDir = file("$buildDir/reports/allTests")
-    reportOn test, intTest
-}
-
 test {
     // log actual and expected data
     testLogging {
@@ -60,6 +55,7 @@ dependencies {
     def hsqlVersion = "2.3.2"
     def googleTruthVersion = "0.23"
     def spockVersion = "0.7-groovy-2.0"
+    def httpBuilderVersion = "0.7"
 
     compile "org.jboss.resteasy:resteasy-guice:$resteasyVersion"
     compile "org.jboss.resteasy:resteasy-jackson2-provider:$resteasyVersion"
@@ -74,7 +70,9 @@ dependencies {
     testCompile "com.google.truth:truth:$googleTruthVersion"
     testCompile "org.spockframework:spock-core:$spockVersion"
 
-    integrationTestCompile "org.codehaus.groovy.modules.http-builder:http-builder:0.7"
+    testCompile "org.codehaus.groovy.modules.http-builder:http-builder:" + httpBuilderVersion
+
+    //TODO IDEA doesn't see this
     integrationTestCompile configurations.testCompile
     integrationTestRuntime configurations.testRuntime
 

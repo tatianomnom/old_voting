@@ -6,7 +6,7 @@ import spock.lang.Specification
 /**
  * TODO add description
  */
-class PollResourceTest extends Specification {
+class PollResourceSpec extends Specification {
 
     def "should create new poll"() {
         given:
