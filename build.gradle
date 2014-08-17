@@ -1,7 +1,9 @@
 apply plugin: 'java'
+apply plugin: 'groovy'
 apply plugin: 'war'
 
 sourceCompatibility = 1.7
+targetCompatibility = 1.7
 
 repositories {
     mavenCentral()
@@ -24,14 +26,18 @@ dependencies {
 
     compile "org.hsqldb:hsqldb:$hsqlVersion"
 
-    testCompile "org.testng:testng:$testNgVersion"
+    testCompile 'org.codehaus.groovy:groovy-all:2.3.2'
+
+//    testCompile "org.testng:testng:$testNgVersion"
     testCompile "com.google.truth:truth:$googleTruthVersion"
+    testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
+
 
 }
 
 test {
     // enable TestNG support (default is JUnit)
-    useTestNG()
+//    useTestNG()
 
     // log actual and expected data
     testLogging {
