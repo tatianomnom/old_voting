@@ -32,6 +32,10 @@ task intTest(type:Test, dependsOn:jettyRun) {
     jettyStop.execute()
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+}
+
 test {
     // log actual and expected data
     testLogging {
@@ -70,7 +74,7 @@ dependencies {
     testCompile "com.google.truth:truth:$googleTruthVersion"
     testCompile "org.spockframework:spock-core:$spockVersion"
 
-    testCompile "org.codehaus.groovy.modules.http-builder:http-builder:" + httpBuilderVersion
+    testCompile "org.codehaus.groovy.modules.http-builder:http-builder:$httpBuilderVersion"
 
     //TODO IDEA doesn't see this
     integrationTestCompile configurations.testCompile
