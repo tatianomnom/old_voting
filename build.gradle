@@ -1,6 +1,7 @@
 apply plugin: 'java'
-apply plugin: 'groovy'
 apply plugin: 'war'
+apply plugin: 'groovy'
+apply plugin: 'jetty'
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
@@ -8,6 +9,50 @@ targetCompatibility = 1.7
 repositories {
     mavenCentral()
 }
+
+configurations {
+    integrationTestCompile { extendsFrom testCompile }
+    integrationTestRuntime { extendsFrom integrationTestCompile, testRuntime }
+}
+
+sourceSets {
+    integrationTest
+}
+
+jettyRun.contextPath = '/'
+jettyRun.httpPort = 8099
+jettyStop.stopPort = 9451
+jettyStop.stopKey = 'foo'
+
+[jettyRun, jettyRunWar]*.daemon = true
+
+task intTest(type:Test, dependsOn:jettyRun) {
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    jettyStop.execute()
+}
+
+task testReport(type: TestReport) {
+    destinationDir = file("$buildDir/reports/allTests")
+    reportOn test, intTest
+}
+
+test {
+    // log actual and expected data
+    testLogging {
+        exceptionFormat = 'full'
+    }
+}
+
+intTest {
+    // log actual and expected data
+    testLogging {
+        exceptionFormat = 'full'
+    }
+}
+
+tasks.jettyRun.dependsOn test
+tasks.check.dependsOn intTest
 
 dependencies {
     def resteasyVersion = '3.0.8.Final'
@@ -29,12 +74,9 @@ dependencies {
     testCompile "com.google.truth:truth:$googleTruthVersion"
     testCompile "org.spockframework:spock-core:$spockVersion"
 
+    integrationTestCompile "org.codehaus.groovy.modules.http-builder:http-builder:0.7"
+    integrationTestCompile configurations.testCompile
+    integrationTestRuntime configurations.testRuntime
 
 }
 
-test {
-    // log actual and expected data
-    testLogging {
-        exceptionFormat = 'full'
-    }
-}

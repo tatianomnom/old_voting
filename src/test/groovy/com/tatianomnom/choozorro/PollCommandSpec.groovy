@@ -1,11 +1,11 @@
-package com.tatianomnom.choozorro.api
+package com.tatianomnom.choozorro
 
 import com.fasterxml.jackson.core.JsonParseException
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.tatianomnom.choozorro.api.PollCommand
 import spock.lang.Shared
 import spock.lang.Specification
-import spock.lang.Unroll
 
 /**
  * TODO add description
@@ -31,10 +31,10 @@ class PollCommandSpec extends Specification {
         objectMapper.readValue(json, PollCommand) == new PollCommand(description, options)
 
         where:
-        description                 | options                    || json
-        'What shall we do tonight?' | ['eat beer', 'drink meat'] || """{"description":"What shall we do tonight?","options":["eat beer", "drink meat"]}"""
-        'What shall we do tonight?' | ['eat beer', 'drink meat'] || """{"options":["eat beer", "drink meat"],"description":"What shall we do tonight?"}"""
-        '?'                         | ['yes', 'no']              || """{"options":  ["yes", "no"],   "description"  :"?"}"""
+        json                                                                                   || description                 | options
+        """{"description":"What shall we do tonight?","options":["eat beer", "drink meat"]}""" || 'What shall we do tonight?' | ['eat beer', 'drink meat']
+        """{"options":["eat beer", "drink meat"],"description":"What shall we do tonight?"}""" || 'What shall we do tonight?' | ['eat beer', 'drink meat']
+        """{"options":  ["yes", "no"],   "description"  :"?"}"""                               || '?'                         | ['yes', 'no']
 
     }
 
@@ -52,7 +52,6 @@ class PollCommandSpec extends Specification {
 
     }
 
-    @Unroll
     def "should not deserialize from incomplete json"() {
 
         when:

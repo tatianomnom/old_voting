@@ -1,16 +1,23 @@
 package com.tatianomnom.choozorro.api;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
 import com.tatianomnom.choozorro.model.Poll;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * TODO add description
  */
 @Path("/polls")
 public class PollResource {
+
+    public static final Logger logger = LogManager.getLogger();
 
     @GET
     @Produces("application/json")
@@ -19,15 +26,11 @@ public class PollResource {
         return poll;
     }
 
-
-    //test with
-    //curl -X POST -d '{"description":"Meow"}' -H "Content-Type: application/json" http://localhost:8080/polls
-    //TODO this guy should accept only list and description, maybe separate poll and internal poll?
-    //or simply parse JSON
-/*    @POST
+    @POST
     @Consumes("application/json")
-    public Response eatSome(Poll poll) {
-        System.out.println("I've got a " + poll.getDescription());
+    public Response create(PollCommand pollCommand) {
+        logger.debug(pollCommand.toString());
         return Response.ok().build();
-    }*/
+    }
+
 }
