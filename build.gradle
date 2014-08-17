@@ -32,4 +32,9 @@ dependencies {
 test {
     // enable TestNG support (default is JUnit)
     useTestNG()
+
+    // log actual and expected data
+    testLogging {
+        exceptionFormat = 'full'
+    }
 }
