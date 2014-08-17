@@ -10,7 +10,7 @@ class PollResourceTest extends Specification {
 
     def "should create new poll"() {
         given:
-        def polls = new RESTClient('http://localhost:899/api/polls')
+        def polls = new RESTClient('http://localhost:8099/api/polls')
 
         when:
         def resp = polls.post([contentType : 'application/json', body: [description : 'test', options: ['a', 'b', 'c']]])
