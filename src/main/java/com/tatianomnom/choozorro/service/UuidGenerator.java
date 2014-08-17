@@ -7,17 +7,13 @@ import javax.inject.Named;
 
 /**
  * TODO add description
+ * TODO make one real and one for testing, with non-random UUID's
  */
-public class UuidGenerator {
+public class UuidGenerator implements StringIdGenerator {
 
-    private final String input;
-
-    @Inject
-    public UuidGenerator(@Named("uuid") String input) {
-        this.input = input;
+    @Override
+    public String generateId() {
+        return UUID.randomUUID().toString().replaceAll("-", "");
     }
 
-    public String generateUuid() {
-        return UUID.randomUUID().toString() + input;
-    }
 }
