@@ -56,8 +56,6 @@ tasks.check.dependsOn intTest
 dependencies {
     def resteasyVersion = '3.0.8.Final'
     def log4jVersion = '2.0.1'
-    def hsqlVersion = "2.3.2"
-    def googleTruthVersion = "0.23"
     def spockVersion = "0.7-groovy-2.0"
     def httpBuilderVersion = "0.7"
 
@@ -69,14 +67,10 @@ dependencies {
     compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
     compile "org.apache.logging.log4j:log4j-web:$log4jVersion"
 
-    compile "org.hsqldb:hsqldb:$hsqlVersion"
-
-    testCompile "com.google.truth:truth:$googleTruthVersion"
     testCompile "org.spockframework:spock-core:$spockVersion"
-
     testCompile "org.codehaus.groovy.modules.http-builder:http-builder:$httpBuilderVersion"
 
-    //TODO IDEA doesn't see this
+    //TODO IDEA doesn't see extra dependencies here
     integrationTestCompile configurations.testCompile
     integrationTestRuntime configurations.testRuntime
 
