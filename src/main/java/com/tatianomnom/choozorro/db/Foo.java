@@ -5,18 +5,17 @@ package com.tatianomnom.choozorro.db;
  */
 public class Foo {
 
+    //not final because of MyBatis
     private int id;
     private String name;
 
-    public Foo() {
-    }
-
-    public void setId(int id) {
+    public Foo(int id, String name) {
         this.id = id;
+        this.name = name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    //for MyBatis
+    private Foo() {
     }
 
     public int getId() {

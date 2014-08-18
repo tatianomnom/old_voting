@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 
 /**
  * TODO add description
+ * TODO remove
  */
 public class DBTest {
     public static void main(String[] a)

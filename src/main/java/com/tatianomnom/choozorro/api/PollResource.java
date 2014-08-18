@@ -47,11 +47,8 @@ public class PollResource {
 
         String id = idGenerator.generateId();
 
-        Foo foo = new Foo();
-        foo.setId(5);
-        foo.setName("Nom");
+        fooDao.addFoo(new Foo(5, "Nom"));
 
-        fooDao.addFoo(foo);
         logger.debug(fooDao.findFoo(5).toString());
 
         logger.debug(uriInfo.getAbsolutePath());
