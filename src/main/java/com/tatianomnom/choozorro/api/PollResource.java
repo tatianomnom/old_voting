@@ -1,8 +1,6 @@
 package com.tatianomnom.choozorro.api;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -14,6 +12,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import com.tatianomnom.choozorro.db.Foo;
+import com.tatianomnom.choozorro.db.FooDao;
 import com.tatianomnom.choozorro.service.StringIdGenerator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,9 +29,12 @@ public class PollResource {
 
     private final StringIdGenerator idGenerator;
 
+    private final FooDao fooDao;
+
     @Inject
-    public PollResource(StringIdGenerator idGenerator) {
+    public PollResource(StringIdGenerator idGenerator, FooDao fooDao) {
         this.idGenerator = idGenerator;
+        this.fooDao = fooDao;
     }
 
     public static final Logger logger = LogManager.getLogger();
@@ -43,6 +46,13 @@ public class PollResource {
         logger.debug(pollCommand.toString());
 
         String id = idGenerator.generateId();
+
+        Foo foo = new Foo();
+        foo.setId(5);
+        foo.setName("Nom");
+
+        fooDao.addFoo(foo);
+        logger.debug(fooDao.findFoo(5).toString());
 
         logger.debug(uriInfo.getAbsolutePath());
         return Response.status(Response.Status.CREATED)

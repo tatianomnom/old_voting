@@ -1,6 +1,8 @@
 package com.tatianomnom.choozorro.api
 
+import groovy.sql.Sql
 import groovyx.net.http.RESTClient
+import org.h2.tools.RunScript
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Stepwise
@@ -18,6 +20,18 @@ class PollResourceSpec extends Specification {
 
     @Shared
     private def polls = new RESTClient("$BASEURL/polls", JSON)
+
+
+
+    def setupSpec() {
+        Sql.withInstance('jdbc:h2:./build/testdb;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;INIT=CREATE SCHEMA IF NOT EXISTS TESTDB', 'sa', '', 'org.h2.Driver') { sql ->
+            sql.execute('''create table PUBLIC.FOO ( id int, name VARCHAR(20) )''')
+        }
+    }
+
+    def cleanupSpec() {
+
+    }
 
     def "should create new poll"() {
 

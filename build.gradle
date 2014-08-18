@@ -63,6 +63,9 @@ dependencies {
     def log4jVersion = '2.0.1'
     def spockVersion = "0.7-groovy-2.0"
     def httpBuilderVersion = "0.7"
+    def h2Version = "1.4.181"
+    def mybatisVersion = "3.2.7"
+    def mybatisGuiceVersion = "3.6"
 
     compile "org.jboss.resteasy:resteasy-guice:$resteasyVersion"
     compile "org.jboss.resteasy:resteasy-jackson2-provider:$resteasyVersion"
@@ -71,6 +74,12 @@ dependencies {
     compile "org.apache.logging.log4j:log4j-api:$log4jVersion"
     compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
     compile "org.apache.logging.log4j:log4j-web:$log4jVersion"
+
+    compile "com.h2database:h2:$h2Version"
+    compile "org.mybatis:mybatis:" + mybatisVersion
+    //TODO check which mybatis version is pulled for mybatis-guice
+    compile "org.mybatis:mybatis-guice:" + mybatisGuiceVersion
+    compile 'com.google.inject.extensions:guice-multibindings:3.0'
 
     testCompile "org.spockframework:spock-core:$spockVersion"
     testCompile "org.codehaus.groovy.modules.http-builder:http-builder:$httpBuilderVersion"
