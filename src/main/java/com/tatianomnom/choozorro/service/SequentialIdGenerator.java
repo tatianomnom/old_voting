@@ -1,15 +1,16 @@
 package com.tatianomnom.choozorro.service;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 /**
  * TODO add description
  */
 public class SequentialIdGenerator implements StringIdGenerator{
 
-    private static long internalCounter = 0L;
+    private static final AtomicLong internalCounter = new AtomicLong(0L);
 
     @Override
     public String generateId() {
-        internalCounter++;
-        return String.format("%032d", internalCounter);
+        return String.format("%032d", internalCounter.incrementAndGet());
     }
 }

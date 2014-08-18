@@ -5,7 +5,6 @@ package com.tatianomnom.choozorro.db;
  */
 public class Foo {
 
-    //not final because of MyBatis
     private final int id;
     private final String name;
 
