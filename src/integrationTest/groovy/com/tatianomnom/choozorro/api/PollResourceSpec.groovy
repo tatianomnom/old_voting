@@ -21,13 +21,16 @@ class PollResourceSpec extends Specification {
     private def polls = new RESTClient("$BASEURL/polls", JSON)
 
     def setupSpec() {
-        Sql.withInstance('jdbc:h2:./build/testdb;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;INIT=CREATE SCHEMA IF NOT EXISTS TESTDB', 'sa', '', 'org.h2.Driver') { sql ->
-            sql.execute('''create table PUBLIC.FOO ( id int, name VARCHAR(20) )''')
+        Sql.withInstance('jdbc:h2:./testdb', 'sa', '', 'org.h2.Driver') { sql ->
+            //'create if not exists' shouldn't be there, because the db should be build from scratch
+            sql.execute('''CREATE TABLE foo ( id INT, name VARCHAR(20) )''')
         }
     }
 
     def cleanupSpec() {
-        //TODO ideally DB cleanup should be done here, not by placing db to ./build directory
+        Sql.withInstance('jdbc:h2:./testdb;AUTO_SERVER=TRUE', 'sa', '', 'org.h2.Driver') { sql ->
+            sql.execute('''DROP ALL OBJECTS DELETE FILES''')
+        }
     }
 
     def "should create new poll"() {

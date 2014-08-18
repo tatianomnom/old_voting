@@ -1,8 +1,6 @@
 package com.tatianomnom.choozorro.db;
 
-import org.apache.ibatis.annotations.ConstructorArgs;
 import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 
 /**
@@ -10,10 +8,9 @@ import org.apache.ibatis.annotations.Select;
  */
 public interface FooMapper {
 
-    @Insert("insert into FOO (id, name) values(#{id}, #{name})")
+    @Insert("INSERT INTO foo (id, name) VALUES (#{id}, #{name})")
     int insertFoo(Foo foo);
 
-    @Select("SELECT * FROM FOO WHERE id = #{id}")
-    @ConstructorArgs
+    @Select("SELECT * FROM foo WHERE id = #{id}")
     Foo selectFoo(int id);
 }

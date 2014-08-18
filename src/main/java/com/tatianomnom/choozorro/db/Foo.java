@@ -6,16 +6,18 @@ package com.tatianomnom.choozorro.db;
 public class Foo {
 
     //not final because of MyBatis
-    private int id;
-    private String name;
+    private final int id;
+    private final String name;
 
     public Foo(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    //for MyBatis
+    //for MyBatis. looks too bad, maybe omit 'final' and leave empty default constructor?
     private Foo() {
+        id = 0;
+        name = "";
     }
 
     public int getId() {
