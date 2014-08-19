@@ -5,18 +5,16 @@ package com.tatianomnom.choozorro.db;
  */
 public class Foo {
 
-    private final int id;
-    private final String name;
+    private int id;
+    private String name;
 
     public Foo(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    //for MyBatis. looks too bad, maybe omit 'final' and leave empty default constructor?
+    //for MyBatis
     private Foo() {
-        id = 0;
-        name = "";
     }
 
     public int getId() {

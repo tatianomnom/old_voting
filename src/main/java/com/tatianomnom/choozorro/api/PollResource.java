@@ -3,12 +3,15 @@ package com.tatianomnom.choozorro.api;
 import java.util.Arrays;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.CookieParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
@@ -53,16 +56,19 @@ public class PollResource {
 
         logger.debug(uriInfo.getAbsolutePath());
         return Response.status(Response.Status.CREATED)
-                .header("Location", uriInfo.getAbsolutePath() +  "/" + id)
+                .header("Location", uriInfo.getAbsolutePath() + "/" + id)
+                .cookie(new NewCookie("Token", id.toUpperCase()))
                 .build();
     }
 
     @GET
     @Path("{id}")
     @Produces("application/json")
-    public Response get(@PathParam("id") String id) {
+    public Response get(@PathParam("id") String id,
+                        @CookieParam(value = "Token") String token) {
         PollCommand pollCommand = new PollCommand("aaa", Arrays.asList("a", "b"));
         logger.debug(id);
+        logger.debug(token);
         return Response.status(Response.Status.OK).entity(pollCommand).build();
     }
 
