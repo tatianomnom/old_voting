@@ -23,13 +23,13 @@ class IdGeneratorSpec extends Specification {
         def sequentialGenerator = new SequentialIdGenerator()
 
         when:
-        long firstId  = sequentialGenerator.generateId() as long
+        long firstId = sequentialGenerator.generateId() as long
         long secondId = sequentialGenerator.generateId() as long
-        long thirdId  = sequentialGenerator.generateId() as long
+        long thirdId = sequentialGenerator.generateId() as long
 
         then:
-        secondId - firstId  == 1
-        thirdId  - secondId == 1
+        secondId - firstId == 1
+        thirdId - secondId == 1
 
     }
 }

@@ -50,7 +50,7 @@ class PollResourceSpec extends Specification {
 
         when:
         //TODO consistent uri chunks in http client, looks like 'path' overwrites previous relative paths
-        def resp = polls.get([path : 'polls/00000000000000000000000000000001'])
+        def resp = polls.get([path: 'polls/00000000000000000000000000000001'])
 
         then:
         resp.data.description == 'aaa'
