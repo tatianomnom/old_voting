@@ -10,7 +10,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
@@ -57,7 +56,7 @@ public class PollResource {
         logger.debug(uriInfo.getAbsolutePath());
         return Response.status(Response.Status.CREATED)
                 .header("Location", uriInfo.getAbsolutePath() + "/" + id)
-                .cookie(new NewCookie("Token", id.toUpperCase()))
+                .cookie(new NewCookie("chz_usr", id.toUpperCase()))
                 .build();
     }
 
@@ -65,7 +64,7 @@ public class PollResource {
     @Path("{id}")
     @Produces("application/json")
     public Response get(@PathParam("id") String id,
-                        @CookieParam(value = "Token") String token) {
+                        @CookieParam(value = "chz_usr") String token) {
         PollCommand pollCommand = new PollCommand("aaa", Arrays.asList("a", "b"));
         logger.debug(id);
         logger.debug(token);
