@@ -18,26 +18,28 @@ class PollCommandSpec extends Specification {
     def "should serialize correctly"() {
 
         given:
-        def pollCommand = new PollCommand('Where to go?', ['zoo', 'gym', 'cafe'])
+        def pollCommand = new PollCommand('Where to go?', ['zoo', 'gym', 'cafe'], null)
 
         expect:
         objectMapper.writeValueAsString(pollCommand) == """{"description":"Where to go?","options":["zoo","gym","cafe"]}"""
 
     }
 
+    //TODO separate test for optional parameters?
     def "should deserialize correctly"() {
 
         expect:
-        objectMapper.readValue(json, PollCommand) == new PollCommand(description, options)
+        objectMapper.readValue(json, PollCommand) == new PollCommand(description, options, url)
 
         where:
-        json                                                                                   || description                 | options
-        """{"description":"What shall we do tonight?","options":["eat beer", "drink meat"]}""" || 'What shall we do tonight?' | ['eat beer', 'drink meat']
-        """{"options":["eat beer", "drink meat"],"description":"What shall we do tonight?"}""" || 'What shall we do tonight?' | ['eat beer', 'drink meat']
-        """{"options":  ["yes", "no"],   "description"  :"?"}"""                               || '?'                         | ['yes', 'no']
+        json                                                                                      || description                 | options          | url
+        """{"description":"What shall we do tonight?","options":["eat", "drink"],"url":"http"}""" || 'What shall we do tonight?' | ['eat', 'drink'] | 'http'
+        """{"options":["eat", "drink"],"description":"What shall we do tonight?"}"""              || 'What shall we do tonight?' | ['eat', 'drink'] | null
+        """{"options":  ["yes", "no"],   "description"  :"?"}"""                                  || '?'                         | ['yes', 'no']    | null
 
     }
 
+    //TODO add a couple of 'urls' below just in case
     def "should not deserialize from invalid json"() {
 
         when:
