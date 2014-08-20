@@ -62,4 +62,13 @@ public class PollCommand {
         result = 31 * result + (url != null ? url.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "PollCommand{" +
+                "description='" + description + '\'' +
+                ", options=" + options +
+                ", url='" + url + '\'' +
+                '}';
+    }
 }

@@ -22,7 +22,6 @@ class PollResourceSpec extends Specification {
 
     def setupSpec() {
         Sql.withInstance('jdbc:h2:./testdb', 'sa', '', 'org.h2.Driver') { sql ->
-            //'create if not exists' shouldn't be there, because the db should be build from scratch
             sql.execute('''CREATE TABLE foo ( id INT, name VARCHAR(20) )''')
         }
     }
