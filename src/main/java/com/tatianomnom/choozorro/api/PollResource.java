@@ -1,5 +1,7 @@
 package com.tatianomnom.choozorro.api;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -44,7 +46,7 @@ public class PollResource {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    public Response create(PollCommand pollCommand) {
+    public Response create(PollCommand pollCommand) throws URISyntaxException{
         logger.debug(pollCommand.toString());
 
         String id = idGenerator.generateId();
@@ -54,8 +56,8 @@ public class PollResource {
         logger.debug(fooDao.findFoo(5).toString());
 
         logger.debug(uriInfo.getAbsolutePath());
-        return Response.status(Response.Status.CREATED)
-                .header("Location", uriInfo.getAbsolutePath() + "/" + id)
+        //TODO try catch... how to handle it properly? can it happen at all?
+        return Response.seeOther(new URI(uriInfo.getAbsolutePath() + "/" + id))
                 .cookie(new NewCookie("chz_usr", id.toUpperCase()))
                 .build();
     }
@@ -65,7 +67,7 @@ public class PollResource {
     @Produces("application/json")
     public Response get(@PathParam("id") String id,
                         @CookieParam(value = "chz_usr") String token) {
-        PollCommand pollCommand = new PollCommand("aaa", Arrays.asList("a", "b"));
+        PollCommand pollCommand = new PollCommand("aaa", Arrays.asList("a", "b"), null);
         logger.debug(id);
         logger.debug(token);
         return Response.status(Response.Status.OK).entity(pollCommand).build();

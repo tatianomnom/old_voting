@@ -33,27 +33,15 @@ class PollResourceSpec extends Specification {
         }
     }
 
-    def "should create new poll"() {
+    def "should create new poll and redirect to it"() {
 
         when:
         def resp = polls.post([body: [description: 'test', options: ['a', 'b', 'c']]])
 
         then:
-        resp.status == 201
-        //TODO is it possible to get only the value?
-        String fullHeader = resp.headers['Location']
-        def header = fullHeader.split(': ')[1].trim()
-        header == "$BASEURL/polls/00000000000000000000000000000001"
-    }
-
-    def "should find created poll"() {
-
-        when:
-        //TODO consistent uri chunks in http client, looks like 'path' overwrites previous relative paths
-        def resp = polls.get([path: 'polls/00000000000000000000000000000001'])
-
-        then:
+        resp.status == 200
         resp.data.description == 'aaa'
         resp.data.options == ['a', 'b']
     }
+
 }
