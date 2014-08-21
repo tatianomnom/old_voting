@@ -41,7 +41,7 @@ public class PollResource {
         this.fooDao = fooDao;
     }
 
-    public static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
 
     @POST
     @Consumes("application/json")

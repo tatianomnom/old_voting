@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 /**
  * TODO add description
  * TODO move inside PollResource? who needs it outside controller
- * TODO add something like maxSubmitsNum
+ * TODO add something like maxSubmitsNum, otherwise someone may clean cookies and submit multiple times
  */
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class PollCommand {

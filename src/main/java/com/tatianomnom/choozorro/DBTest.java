@@ -9,18 +9,20 @@ import java.sql.SQLException;
  * TODO remove
  */
 public class DBTest {
-    public static void main(String[] a) throws ClassNotFoundException, SQLException {
+    public static void main(String[] a) throws ClassNotFoundException {
         Class.forName("org.h2.Driver");
-        Connection conn = DriverManager.
-                getConnection("jdbc:h2:mem:testdb", "sa", "");
+        try(Connection conn = DriverManager.
+                getConnection("jdbc:h2:mem:testdb", "sa", "")) {
 
-        String stmt = "CREATE TABLE PUBLIC.FOO\n" +
-                "(\n" +
-                "    id INT PRIMARY KEY NOT NULL,\n" +
-                "    name VARCHAR2  NOT NULL\n" +
-                ");";
-        // add application code here
-        conn.prepareStatement(stmt).execute();
-        conn.close();
+            String stmt = "CREATE TABLE PUBLIC.FOO\n" +
+                    "(\n" +
+                    "    id INT PRIMARY KEY NOT NULL,\n" +
+                    "    name VARCHAR2  NOT NULL\n" +
+                    ");";
+            // add application code here
+            conn.prepareStatement(stmt).execute();
+        } catch (SQLException e){
+            System.out.println("omfg!! " + e);
+        }
     }
 }
