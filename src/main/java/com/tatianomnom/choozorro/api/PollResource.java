@@ -24,6 +24,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * TODO add description
+ * TODO make use of Nullable and NotNull annotations in the project
  */
 @Path("/polls")
 public class PollResource {
