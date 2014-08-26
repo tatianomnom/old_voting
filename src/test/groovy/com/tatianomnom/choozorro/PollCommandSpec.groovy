@@ -36,7 +36,6 @@ class PollCommandSpec extends Specification {
 
     }
 
-    //TODO separate test for optional parameters?
     def "should deserialize correctly"() {
 
         expect:
@@ -55,7 +54,7 @@ class PollCommandSpec extends Specification {
     def "should not deserialize from invalid json"() {
 
         when:
-        objectMapper.readValue(json, PollCommand)
+        objectMapper.readValue(json as String, PollCommand)
 
         then:
         thrown JsonParseException
@@ -66,18 +65,17 @@ class PollCommandSpec extends Specification {
 
     }
 
+    //TODO this is not too helpful due to the constraints of Jackson, see properties file comments
     def "should not deserialize from incomplete json"() {
 
         when:
-        println objectMapper.readValue(json, PollCommand)
+        println objectMapper.readValue(json as String, PollCommand)
 
         then:
         thrown JsonMappingException
 
         where:
-        json << ["""{"description":"A?","ptions":["B", "C"]}""",
-                 """{"escription":"A?","options":["B", "C"]}""",
-                 """{"description":"A?"}"""]
+        json << [jsons['onlyDescription'], jsons['onlyDescriptionAndMaxSubmits']]
 
     }
 
