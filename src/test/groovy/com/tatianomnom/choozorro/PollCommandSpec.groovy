@@ -9,12 +9,22 @@ import spock.lang.Specification
 
 /**
  * TODO add description
- * TODO extract JSONs to resource files?
  */
 class PollCommandSpec extends Specification {
 
     @Shared
-    def objectMapper = new ObjectMapper()
+    private def objectMapper = new ObjectMapper()
+
+    @Shared
+    private def jsons
+
+    def setupSpec() {
+        def props = new Properties()
+        this.getClass().getResource('/poll_sample_jsons.properties').withInputStream {
+            props.load(it)
+        }
+        jsons = new ConfigSlurper().parse(props)
+    }
 
     def "should serialize correctly"() {
 
@@ -22,7 +32,7 @@ class PollCommandSpec extends Specification {
         def pollCommand = new PollCommand('Where to go?', ['zoo', 'gym', 'cafe'], null, null)
 
         expect:
-        objectMapper.writeValueAsString(pollCommand) == """{"description":"Where to go?","options":["zoo","gym","cafe"]}"""
+        objectMapper.writeValueAsString(pollCommand) == jsons['withoutUrlAndMaxSubmits']
 
     }
 
@@ -30,14 +40,15 @@ class PollCommandSpec extends Specification {
     def "should deserialize correctly"() {
 
         expect:
-        objectMapper.readValue(json, PollCommand) == new PollCommand(description, options, url, null)
+        objectMapper.readValue(json as String, PollCommand) == new PollCommand(description, options, url, maxSubmits)
 
         where:
-        json                                                                                      || description                 | options          | url
-        """{"description":"What shall we do tonight?","options":["eat", "drink"],"url":"http"}""" || 'What shall we do tonight?' | ['eat', 'drink'] | 'http'
-        """{"options":["eat", "drink"],"description":"What shall we do tonight?"}"""              || 'What shall we do tonight?' | ['eat', 'drink'] | null
-        """{"options":  ["yes", "no"],   "description"  :"?"}"""                                  || '?'                         | ['yes', 'no']    | null
-
+        json                              || description    | options                | url                     | maxSubmits
+        jsons['full']                     || 'Where to go?' | ['zoo', 'gym', 'cafe'] | 'http://example.com/abc'| 5
+        jsons['withoutUrl']               || 'Where to go?' | ['zoo', 'gym', 'cafe'] | null                    | 5
+        jsons['withoutMaxSubmits']        || 'Where to go?' | ['zoo', 'gym', 'cafe'] | 'http://example.com/abc'| null
+        jsons['withoutUrlAndMaxSubmits']  || 'Where to go?' | ['zoo', 'gym', 'cafe'] | null                    | null
+        //hover on values in square brackets and praise IDEA :)
     }
 
     //TODO add a couple of 'urls' below just in case
