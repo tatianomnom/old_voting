@@ -68,7 +68,7 @@ public class PollResource {
     @Produces("application/json")
     public Response get(@PathParam("id") String id,
                         @CookieParam(value = "chz_usr") String token) {
-        PollCommand pollCommand = new PollCommand("aaa", Arrays.asList("a", "b"), null);
+        PollCommand pollCommand = new PollCommand("aaa", Arrays.asList("a", "b"), null, null);
         logger.debug(id);
         logger.debug(token);
         return Response.status(Response.Status.OK).entity(pollCommand).build();

@@ -9,6 +9,7 @@ import spock.lang.Specification
 
 /**
  * TODO add description
+ * TODO extract JSONs to resource files?
  */
 class PollCommandSpec extends Specification {
 
@@ -18,7 +19,7 @@ class PollCommandSpec extends Specification {
     def "should serialize correctly"() {
 
         given:
-        def pollCommand = new PollCommand('Where to go?', ['zoo', 'gym', 'cafe'], null)
+        def pollCommand = new PollCommand('Where to go?', ['zoo', 'gym', 'cafe'], null, null)
 
         expect:
         objectMapper.writeValueAsString(pollCommand) == """{"description":"Where to go?","options":["zoo","gym","cafe"]}"""
@@ -29,7 +30,7 @@ class PollCommandSpec extends Specification {
     def "should deserialize correctly"() {
 
         expect:
-        objectMapper.readValue(json, PollCommand) == new PollCommand(description, options, url)
+        objectMapper.readValue(json, PollCommand) == new PollCommand(description, options, url, null)
 
         where:
         json                                                                                      || description                 | options          | url

@@ -10,21 +10,23 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 /**
  * TODO add description
  * TODO move inside PollResource? who needs it outside controller
- * TODO add something like maxSubmitsNum, otherwise someone may clean cookies and submit multiple times
  */
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class PollCommand {
     private final String description;
     private final List<String> options;
     private final String url;
+    private final Integer maxSubmits;
 
     //TODO currently 'required' actually does nothing
     public PollCommand(@JsonProperty(value = "description", required = true) String description,
                        @JsonProperty(value = "options", required = true) List<String> options,
-                       @JsonProperty(value = "url") String url) {
+                       @JsonProperty(value = "url") String url,
+                       @JsonProperty(value = "maxSubmits") Integer maxSubmits) {
         this.description = description;
         this.options = Collections.unmodifiableList(options);
         this.url = url;
+        this.maxSubmits = maxSubmits;
     }
 
     public String getDescription() {
@@ -39,6 +41,10 @@ public class PollCommand {
         return url;
     }
 
+    public Integer getMaxSubmits() {
+        return maxSubmits;
+    }
+
     //TODO recall equals and hashCode best practices from Effective Java
 
     //TODO test these methods
@@ -49,17 +55,18 @@ public class PollCommand {
 
         PollCommand that = (PollCommand) o;
 
-        return !(description != null ? !description.equals(that.description) : that.description != null)
-                && !(options != null ? !options.equals(that.options) : that.options != null)
+        return description.equals(that.description)
+                && !(maxSubmits != null ? !maxSubmits.equals(that.maxSubmits) : that.maxSubmits != null)
+                && options.equals(that.options)
                 && !(url != null ? !url.equals(that.url) : that.url != null);
-
     }
 
     @Override
     public int hashCode() {
-        int result = description != null ? description.hashCode() : 0;
-        result = 31 * result + (options != null ? options.hashCode() : 0);
+        int result = description.hashCode();
+        result = 31 * result + options.hashCode();
         result = 31 * result + (url != null ? url.hashCode() : 0);
+        result = 31 * result + (maxSubmits != null ? maxSubmits.hashCode() : 0);
         return result;
     }
 
@@ -69,6 +76,7 @@ public class PollCommand {
                 "description='" + description + '\'' +
                 ", options=" + options +
                 ", url='" + url + '\'' +
+                ", maxSubmits=" + maxSubmits +
                 '}';
     }
 }
