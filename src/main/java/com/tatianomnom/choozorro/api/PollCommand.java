@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 /**
  * TODO add description
  * TODO move inside PollResource? who needs it outside controller
+ * TODO add later 'time to live' for the poll. for now, default will be...hmmm...1day
  */
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class PollCommand {
