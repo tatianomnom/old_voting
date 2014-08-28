@@ -26,6 +26,10 @@ jettyStop.stopKey = 'foo'
 
 [jettyRun, jettyRunWar]*.daemon = true
 
+[jettyRun, jettyRunWar].each { jetty ->
+    jetty.dependsOn jettyStop
+}
+
 task intTest(type:Test, dependsOn:jettyRun) {
     testClassesDir = sourceSets.integrationTest.output.classesDir
     classpath = sourceSets.integrationTest.runtimeClasspath

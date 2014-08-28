@@ -23,6 +23,12 @@ class PollResourceSpec extends Specification {
     def setupSpec() {
         Sql.withInstance('jdbc:h2:./testdb', 'sa', '', 'org.h2.Driver') { sql ->
             sql.execute('''CREATE TABLE foo ( id INT, name VARCHAR(20) )''')
+            sql.execute('''CREATE SEQUENCE poll_seq''')
+            sql.execute('''CREATE TABLE poll ( id BIGINT DEFAULT poll_seq.nextval primary key,
+                                               timestamp TIMESTAMP,
+                                               creator_session VARCHAR(32),
+                                               voting_url_token VARCHAR(32),
+                                               tracking_url_token VARCHAR(32))''')
         }
     }
 

@@ -2,7 +2,9 @@ package com.tatianomnom.choozorro.api;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Date;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.CookieParam;
@@ -18,6 +20,8 @@ import javax.ws.rs.core.UriInfo;
 
 import com.tatianomnom.choozorro.db.Foo;
 import com.tatianomnom.choozorro.db.FooDao;
+import com.tatianomnom.choozorro.db.Poll;
+import com.tatianomnom.choozorro.db.PollDao;
 import com.tatianomnom.choozorro.service.StringIdGenerator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,10 +40,13 @@ public class PollResource {
 
     private final FooDao fooDao;
 
+    private final PollDao pollDao;
+
     @Inject
-    public PollResource(StringIdGenerator idGenerator, FooDao fooDao) {
+    public PollResource(StringIdGenerator idGenerator, FooDao fooDao, PollDao pollDao) {
         this.idGenerator = idGenerator;
         this.fooDao = fooDao;
+        this.pollDao = pollDao;
     }
 
     private static final Logger logger = LogManager.getLogger();
@@ -51,6 +58,9 @@ public class PollResource {
         logger.debug(pollCommand.toString());
 
         String id = idGenerator.generateId();
+
+        Poll poll = new Poll(new Timestamp(new Date().getTime()), id, id, id);
+        pollDao.addPoll(poll);
 
         fooDao.addFoo(new Foo(5, "Nom"));
 

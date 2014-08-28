@@ -32,7 +32,9 @@ public class DbModule extends MyBatisModule {
         bindTransactionFactoryType(JdbcTransactionFactory.class);
 
         addMapperClass(FooMapper.class);
+        addMapperClass(PollMapper.class);
 
         bind(FooDao.class);
+        bind(PollDao.class);
     }
 }
