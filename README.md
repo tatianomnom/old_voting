@@ -1,4 +1,1 @@
-choozorro
-=========
-
-Collaborative decision-making for overly formal people
+(Abandoned but includes some good examples)
