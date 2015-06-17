@@ -31,10 +31,8 @@ public class DbModule extends MyBatisModule {
         bindDataSourceProviderType(PooledDataSourceProvider.class);
         bindTransactionFactoryType(JdbcTransactionFactory.class);
 
-        addMapperClass(FooMapper.class);
         addMapperClass(PollMapper.class);
 
-        bind(FooDao.class);
         bind(PollDao.class);
     }
 }

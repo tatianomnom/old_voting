@@ -18,8 +18,6 @@ import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import com.tatianomnom.choozorro.db.Foo;
-import com.tatianomnom.choozorro.db.FooDao;
 import com.tatianomnom.choozorro.db.Poll;
 import com.tatianomnom.choozorro.db.PollDao;
 import com.tatianomnom.choozorro.service.StringIdGenerator;
@@ -38,14 +36,11 @@ public class PollResource {
 
     private final StringIdGenerator idGenerator;
 
-    private final FooDao fooDao;
-
     private final PollDao pollDao;
 
     @Inject
-    public PollResource(StringIdGenerator idGenerator, FooDao fooDao, PollDao pollDao) {
+    public PollResource(StringIdGenerator idGenerator, PollDao pollDao) {
         this.idGenerator = idGenerator;
-        this.fooDao = fooDao;
         this.pollDao = pollDao;
     }
 
@@ -61,10 +56,6 @@ public class PollResource {
 
         Poll poll = new Poll(new Timestamp(new Date().getTime()), id, id, id);
         pollDao.addPoll(poll);
-
-        fooDao.addFoo(new Foo(5, "Nom"));
-
-        logger.debug(fooDao.findFoo(5).toString());
 
         logger.debug(uriInfo.getAbsolutePath());
         //TODO try catch... how to handle it properly? can it happen at all?

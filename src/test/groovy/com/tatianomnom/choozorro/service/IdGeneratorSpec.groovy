@@ -28,8 +28,8 @@ class IdGeneratorSpec extends Specification {
         long thirdId = sequentialGenerator.generateId() as long
 
         then:
-        secondId - firstId == 1
-        thirdId - secondId == 1
+        secondId - firstId == 1L
+        thirdId - secondId == 1L
 
     }
 }
